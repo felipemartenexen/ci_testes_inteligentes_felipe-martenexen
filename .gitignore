@@ -1,0 +1,35 @@
+# Dependências
+node_modules/
+package-lock.json.bak
+
+# Saídas dos testes
+test-results/
+playwright-report/
+playwright/.cache/
+blob-report/
+
+# Vídeos e screenshots gerados em runtime (mas mantém os baselines de Visual Regression)
+tests/**/videos/
+tests/**/test-output/
+!tests/**/__screenshots__/
+
+# Variáveis de ambiente / credenciais
+.env
+.env.local
+.env.*.local
+
+# IDE / agentes locais
+.idea/
+.vscode/
+.claude/
+*.swp
+.DS_Store
+
+# Logs
+*.log
+npm-debug.log*
+
+# Build / TS
+dist/
+build/
+*.tsbuildinfo

@@ -1,7 +1,7 @@
 # CI - Testes Inteligentes (Felipe Martenexen)
 
 [![CI - Testes Manuais](https://github.com/felipemartenexen/ci_testes_inteligentes_felipe-martenexen/actions/workflows/ci-manual.yml/badge.svg)](https://github.com/felipemartenexen/ci_testes_inteligentes_felipe-martenexen/actions/workflows/ci-manual.yml)
-[![CI - Testes com IA](https://github.com/felipemartenexenO/ci_testes_inteligentes_felipe-martenexen/actions/workflows/ci-ia.yml/badge.svg)](https://github.com/felipemartenexen/ci_testes_inteligentes_felipe-martenexen/actions/workflows/ci-ia.yml)
+[![CI - Testes com IA](https://github.com/felipemartenexen/ci_testes_inteligentes_felipe-martenexen/actions/workflows/ci-ia.yml/badge.svg)](https://github.com/felipemartenexen/ci_testes_inteligentes_felipe-martenexen/actions/workflows/ci-ia.yml)
 
 > Atividade da disciplina: Pipeline de CI e automação de testes sem e com o suporte e recursos de IA.
 
@@ -75,7 +75,7 @@ Pré-requisitos: **Node.js 20+** e **npm**.
 
 ```bash
 # 1. Clonar o repositório
-git clone https://github.com/SEU-USUARIO/ci_testes_inteligentes_felipe-martenexen.git
+git clone https://github.com/felipemartenexen/ci_testes_inteligentes_felipe-martenexen.git
 cd ci_testes_inteligentes_felipe-martenexen
 
 # 2. Instalar dependências

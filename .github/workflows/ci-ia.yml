@@ -1,0 +1,83 @@
+name: CI - Testes com IA
+
+on:
+  push:
+    branches-ignore:
+      - main
+      - master
+  pull_request:
+    branches:
+      - main
+      - master
+  workflow_dispatch: {}
+
+concurrency:
+  group: ci-ia-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  testes-ia:
+    name: Testes com IA (Self-Healing + Visual Regression)
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js (com cache npm)
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Instalar dependências
+        run: npm ci
+
+      - name: Cache de browsers do Playwright
+        uses: actions/cache@v4
+        id: playwright-cache
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+
+      - name: Instalar browsers do Playwright
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: npx playwright install --with-deps chromium
+
+      - name: Instalar dependências do sistema (caso cache hit)
+        if: steps.playwright-cache.outputs.cache-hit == 'true'
+        run: npx playwright install-deps chromium
+
+      - name: Executar testes COM IA
+        id: run-tests
+        run: npm run test:ia
+        env:
+          CI: 'true'
+
+      - name: Marcar status final
+        if: always()
+        run: |
+          if [ "${{ steps.run-tests.outcome }}" = "success" ]; then
+            echo "::notice title=Resultado::PASSED — Todos os testes com IA passaram"
+          else
+            echo "::error title=Resultado::FAILED — Há testes com IA falhando"
+          fi
+
+      - name: Upload do relatório HTML (Playwright)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report-ia
+          path: playwright-report/
+          retention-days: 7
+
+      - name: Upload de screenshots/videos/snapshots de diff
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-artifacts-ia
+          path: |
+            test-results/
+            tests/ia/__screenshots__/
+          retention-days: 7
