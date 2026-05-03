@@ -1,0 +1,30 @@
+{
+  "name": "ci-testes-inteligentes-felipe-martenexen",
+  "version": "1.0.0",
+  "description": "Pipelines de CI com testes automatizados manuais e com suporte de IA usando Playwright",
+  "scripts": {
+    "test": "playwright test",
+    "test:manual": "playwright test tests/manual --reporter=html,list",
+    "test:ia": "playwright test tests/ia --reporter=html,list",
+    "test:headed": "playwright test --headed",
+    "test:ui": "playwright test --ui",
+    "report": "playwright show-report",
+    "codegen": "playwright codegen https://automationexercise.com/",
+    "update-snapshots": "playwright test --update-snapshots"
+  },
+  "keywords": [
+    "playwright",
+    "ci-cd",
+    "qa",
+    "automation",
+    "ai-testing"
+  ],
+  "author": "Luiz Felipe Morais Martenexen",
+  "license": "MIT",
+  "devDependencies": {
+    "@playwright/test": "^1.48.0",
+    "@types/node": "^22.7.0",
+    "dotenv": "^16.4.5",
+    "typescript": "^5.6.0"
+  }
+}
